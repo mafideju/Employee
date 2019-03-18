@@ -29,7 +29,7 @@ mongoose
   .connect(db, {
     useNewUrlParser: true
   })
-  .then(() => console.log('Mongoose Rodando na Porta 27001'))
+  .then(() => console.log('Mongoose Rodando na Porta 27017'))
   .catch(err => console.log(err));
 
 // SERVER

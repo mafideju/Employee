@@ -1,0 +1,21 @@
+.navbar {
+  display: flex;
+  align-self: center;
+}
+
+.navbar--menu {
+  display: flex !important;
+  align-items: baseline;
+  z-index: 1000;
+  margin: -1.5rem 0 -.75rem 0!important;
+  border: none;
+}
+
+.navbar--logo {
+  font-size: 2rem;
+  font-weight: bolder;
+}
+
+.navbar--button {
+  margin-bottom: .5rem!important;
+}
