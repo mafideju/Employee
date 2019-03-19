@@ -14,15 +14,13 @@ class App extends Component {
   render() {
     return (
       <Router history={history}>
-        <React.Fragment>
-          <Navbar />
-          <Switch>
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/cadastro" component={Register} />
-          </Switch>
-          <Footer />
-        </React.Fragment>
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/cadastro" component={Register} />
+        </Switch>
+        <Footer />
       </Router>
     );
   }

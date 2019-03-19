@@ -1,7 +1,7 @@
 Desenvolvido por Marcio Mafideju como peça de estudo sobre desenvolvimento completo de uma aplicação.
 Tudo isso é JavaScript!!!
 
-Banco de dados: MongoDB
+Banco de dados: MongoDB /n
 Mapeamento de banco de dados: Mongoose
 Servidor: Express
 Estado: Redux

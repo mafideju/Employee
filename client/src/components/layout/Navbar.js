@@ -57,7 +57,7 @@ class DesktopContainer extends Component {
                 active={this.state.activeItem === !this.state.activeItem}
                 className="navbar--logo"
                 position='left'>
-                <Link to="/">EMPLOYEÈS</Link>
+                <Link to="/">EMPLOYEE</Link>
               </Menu.Item>
 
               <div className="navbar">

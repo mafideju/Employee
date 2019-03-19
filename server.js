@@ -24,6 +24,7 @@ app.use('/api/posts', posts);
 // JWT/PASSPORT STRATEGY
 require('./config/passport')(passport)
 
+// KEYS LOADER
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 
