@@ -21,8 +21,9 @@ router.post('/cadastro', (req, res) => {
     res.status(400).json(errors)
   }
 
-  User.findOne({
-    email: req.body.email
+  User
+    .findOne({
+      email: req.body.email
   }).then(user => {
     if (user) {
       errors.email = 'Este Email já está em uso.';

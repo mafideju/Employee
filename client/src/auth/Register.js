@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import classnames from 'classnames';
 import { Button, Form, Container, Header, Icon } from 'semantic-ui-react';
 import './Register.css';
 
@@ -62,7 +61,7 @@ class Register extends Component {
             <div className={`${errors.email ? 'redAlert' : ''}`}>
               <label>Endereço Eletrônico</label>
               <input
-                type='email'
+                // type='email'
                 placeholder='E-Mail'
                 name='email'
                 value={this.state.email}
@@ -70,7 +69,7 @@ class Register extends Component {
               />
               {errors.email ? errors.email : ''}
             </div>
-            <small>Entre com o mesmo Email do Gravatar, para logar com a mesma foto !!!</small>
+            <small>Registre-se com o mesmo Email do Gravatar e associe os avatares !!!</small>
           </Form.Field>
 
           <Form.Field>
@@ -101,7 +100,7 @@ class Register extends Component {
             </div>
           </Form.Field>
 
-          <Button fluid
+          <Button inverted fluid
             color='violet'
             type='submit'>Mandar Dados
           </Button>

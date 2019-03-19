@@ -33,26 +33,29 @@ class Register extends Component {
         <Form onSubmit={this.onSubmitHandler}>
 
           <Form.Field>
-            <label>E-Mail</label>
-            <input
-              placeholder='Insira o Email de Cadastro'
-              name='email'
-              value={this.state.email}
-              onChange={this.onInputChange}
-            />
+            <div>
+              <label>E-Mail</label>
+              <input
+                placeholder='Insira o Email de Cadastro'
+                name='email'
+                value={this.state.email}
+                onChange={this.onInputChange} />
+            </div>
           </Form.Field>
 
           <Form.Field>
-            <label>Senha</label>
-            <input
-              placeholder='Mais de 6 Caracteres'
-              name='password'
-              value={this.state.password}
-              onChange={this.onInputChange}
-            />
+            <div>
+              <label>Senha</label>
+              <input
+                placeholder='Mais de 6 Caracteres'
+                name='password'
+                value={this.state.password}
+                onChange={this.onInputChange}
+              />
+            </div>
           </Form.Field>
 
-          <Button fluid
+          <Button fluid inverted
             color='violet'
             type='submit'>Mandar Dados
           </Button>
