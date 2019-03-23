@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
 import { Button, Form, Container, Header, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { registerUser } from '../actions';
-import './Register.css';
+import history from '../history';
+import './auth.css';
 
 class Register extends Component {
   state = {
@@ -12,6 +12,18 @@ class Register extends Component {
     password: '',
     password2: '',
     errors: {}
+  }
+
+  componentDidMount = () => {
+    if (this.props.auth.isAuthenticated) {
+      history.push('/dashboard')
+    }
+  }
+
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors })
+    }
   }
 
   onInputChange = e => {
@@ -28,13 +40,9 @@ class Register extends Component {
       password: this.state.password,
       password2: this.state.password2
     }
-    this.props.registerUser(newUser)
-    // axios
-    //   .post('/api/users/cadastro', newUser)
-    //   .then(res => console.log(res.data))
-    //   .catch(err => this.setState({
-    //     errors: err.response.data
-    //   }))
+    this.props.registerUser(newUser);
+    // console.log(newUser)
+
   }
 
   render() {
@@ -118,7 +126,8 @@ class Register extends Component {
 
 const mapStateToProps = state => {
   return {
-    auth: state.auth
+    auth: state.auth,
+    errors: state.errors
   }
 }
 

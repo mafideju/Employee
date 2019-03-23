@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 import {
-  Container,
-  Icon,
+  // Container,
+  // Icon,
   Menu,
   Responsive,
   Segment,
-  Sidebar,
+  // Sidebar,
   Visibility,
   Button,
 } from 'semantic-ui-react';
-// import GoogleAuth from '../../Auth/GoogleAuth';
+import { connect } from 'react-redux';
+import { logoutUser } from '../../actions'
 import './NavBar.css';
 
 
@@ -19,19 +20,32 @@ const getWidth = () => {
   return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth
 }
 
-class DesktopContainer extends Component {
+class NavBar extends Component {
   state = {
     activeItem: null,
     fixed: null
   }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  handleItemClick = (e, { name }) => {
+    return this.setState({ activeItem: name })
+  }
 
-  hideFixedMenu = () => this.setState({ fixed: false })
-  showFixedMenu = () => this.setState({ fixed: true })
+  hideFixedMenu = () => {
+    return this.setState({ fixed: false })
+  }
+  showFixedMenu = () => {
+    return this.setState({ fixed: true })
+  }
+
+  onLogoutHandle = () => {
+    this.props.logoutUser();
+  }
 
   render() {
-    const { fixed } = this.state
+    const { fixed } = this.state;
+    console.log('NAVBAR PROPS', this.props)
+    const { isAuthenticated, user } = this.props.auth;
+
     return (
       <Responsive
         getWidth={getWidth}
@@ -39,7 +53,8 @@ class DesktopContainer extends Component {
         <Visibility
           once={false}
           onBottomPassed={this.showFixedMenu}
-          onBottomPassedReverse={this.hideFixedMenu}>
+          onBottomPassedReverse={this.hideFixedMenu}
+        >
           <Segment
             inverted
             textAlign='center'
@@ -90,26 +105,43 @@ class DesktopContainer extends Component {
                     Menu Three
                   </Link>
                 </Menu.Item>
-
-
               </div>
 
               <Menu.Item
                 className="navbar--button"
                 position='right'>
-                <Link to='/cadastro'>
-                  <Button inverted basic
-                    color='violet'
-                    content='Cadastro'
-                  />
-                </Link>
-                <Link to='/login'>
-                  <Button inverted basic
-                    color='violet'
-                    content='Entrar'
-                  />
-                </Link>
+
+                {!isAuthenticated ?
+                  <React.Fragment>
+                    <Link to='/cadastro'>
+                      <Button inverted basic
+                        color='violet'
+                        content='Cadastro'
+                      />
+                    </Link>
+                    <Link to='/login'>
+                      <Button inverted basic
+                        color='violet'
+                        content='Entrar'
+                      />
+                    </Link>
+                  </React.Fragment> :
+
+                  <div className='navbar--button__logout'>
+                    <img
+                      src={user.avatar}
+                      alt={user.name}
+                      className="avatar"
+                      title="Conecte-se com a conta do Gravatar para ver sua carinha aqui =)" />
+                    <Button inverted basic
+                      onClick={this.onLogoutHandle}
+                      color="violet"
+                      content="Sair" />
+                  </div>}
+
+
               </Menu.Item>
+
 
             </Menu>
           </Segment>
@@ -120,80 +152,88 @@ class DesktopContainer extends Component {
 }
 
 
-class MobileContainer extends Component {
-  state = {
-    sidebarOpened: null
-  }
+// class MobileContainer extends Component {
+//   state = {
+//     sidebarOpened: null
+//   }
 
-  handleSidebarHide = () => {
-    return this.setState({ sidebarOpened: false })
-  }
+//   handleSidebarHide = () => {
+//     return this.setState({ sidebarOpened: false })
+//   }
 
-  handleToggle = () => {
-    return this.setState({ sidebarOpened: true })
-  }
+//   handleToggle = () => {
+//     return this.setState({ sidebarOpened: true })
+//   }
 
-  render() {
-    const { sidebarOpened } = this.state
-    return (
-      <Responsive as={Sidebar.Pushable}
-        getWidth={getWidth}
-        maxWidth={Responsive.onlyMobile.maxWidth}>
-        <Sidebar as={Menu}
-          animation='push'
-          inverted
-          onHide={this.handleSidebarHide}
-          vertical
-          visible={sidebarOpened}>
+//   render() {
+//     const { sidebarOpened } = this.state
+//     return (
+//       <Responsive as={Sidebar.Pushable}
+//         getWidth={getWidth}
+//         maxWidth={Responsive.onlyMobile.maxWidth}>
+//         <Sidebar as={Menu}
+//           animation='push'
+//           inverted
+//           onHide={this.handleSidebarHide}
+//           vertical
+//           visible={sidebarOpened}>
 
-          <Menu.Item as='a' active>
-            Home
-          </Menu.Item>
-          <Menu.Item as='a' active>
-            <Link to="/streams/new">
-              New Stream
-            </Link>
-          </Menu.Item>
-          <Menu.Item as='a'>
-            <Link to="/streams/edit">
-              Edit
-            </Link>
-          </Menu.Item>
-          <Menu.Item as='a'>
-            <Link to="/streams/delete" >
-              Delete
-            </Link>
-          </Menu.Item>
+//           <Menu.Item as='a' active>
+//             Home
+//           </Menu.Item>
+//           <Menu.Item as='a' active>
+//             <Link to="/streams/new">
+//               New Stream
+//             </Link>
+//           </Menu.Item>
+//           <Menu.Item as='a'>
+//             <Link to="/streams/edit">
+//               Edit
+//             </Link>
+//           </Menu.Item>
+//           <Menu.Item as='a'>
+//             <Link to="/streams/delete" >
+//               Delete
+//             </Link>
+//           </Menu.Item>
 
-          <Menu.Item>
-            {/* <GoogleAuth /> */}
-          </Menu.Item>
+//           <Menu.Item>
+//             {/* <GoogleAuth /> */}
+//           </Menu.Item>
 
-        </Sidebar>
+//         </Sidebar>
 
-        <Sidebar.Pusher dimmed={sidebarOpened}>
-          <Segment inverted vertical
-            textAlign='center'
-            style={{ minHeight: '350px', padding: '1em 0em' }}>
-            <Container>
-              <Menu inverted pointing
-                secondary size='massive'>
-                <Menu.Item onClick={this.handleToggle}>
-                  <Icon name='sidebar' />
-                </Menu.Item>
-              </Menu>
-            </Container>
-          </Segment>
-        </Sidebar.Pusher>
-      </Responsive>
-    )
+//         <Sidebar.Pusher dimmed={sidebarOpened}>
+//           <Segment inverted vertical
+//             textAlign='center'
+//             style={{ minHeight: '350px', padding: '1em 0em' }}>
+//             <Container>
+//               <Menu inverted pointing
+//                 secondary size='massive'>
+//                 <Menu.Item onClick={this.handleToggle}>
+//                   <Icon name='sidebar' />
+//                 </Menu.Item>
+//               </Menu>
+//             </Container>
+//           </Segment>
+//         </Sidebar.Pusher>
+//       </Responsive>
+//     )
+//   }
+// }
+
+// const NavBar = ({ children }) => (
+//   <div>
+//     <DesktopContainer>{children}</DesktopContainer>
+//     <MobileContainer>{children}</MobileContainer>
+//   </div>
+// )
+
+const mapStateToProps = state => {
+  console.log('STATE NAVBAR', state)
+  return {
+    auth: state.auth
   }
 }
 
-const NavBar = ({ children }) => (
-  <div>
-    <DesktopContainer>{children}</DesktopContainer>
-    <MobileContainer>{children}</MobileContainer>
-  </div>
-)
-export default NavBar;
+export default connect(mapStateToProps, { logoutUser })(NavBar);

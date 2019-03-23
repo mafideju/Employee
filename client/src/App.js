@@ -9,7 +9,6 @@ import Register from './auth/Register';
 import history from "./history";
 import './App.css';
 
-
 class App extends Component {
   render() {
     return (

@@ -2,9 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const router = express.Router();
-const Post = require('../../models/Posts');
-const Profile = require('../../models/Profile');
-const validatePostInput = require('../../validation/posts');
+const Post = require('../models/Posts');
+const Profile = require('../models/Profile');
+const validatePostInput = require('../validation/posts');
 
 
 router.get('/test', (req, res) => res.json({ msg: 'posts tá rolando' }))

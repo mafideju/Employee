@@ -8,18 +8,18 @@ const app = express();
 const port = process.env.PORT || 7007;
 
 // ROUTES
-const users = require('./routes/api/users');
-const posts = require('./routes/api/posts');
-const profile = require('./routes/api/profile');
+const users = require('./routes/users');
+const posts = require('./routes/posts');
+const profile = require('./routes/profile');
 
 // MIDDLEWARES (ATIVA O USO)
 app.use(passport.initialize());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use('/api/users', users);
-app.use('/api/profile', profile);
-app.use('/api/posts', posts);
+app.use('/users', users);
+app.use('/posts', posts);
+app.use('/profile', profile);
 
 // JWT/PASSPORT STRATEGY
 require('./config/passport')(passport)
@@ -32,7 +32,6 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
   });
 }
-
 
 // DB
 const db = require('./config/keys').mongoURI;

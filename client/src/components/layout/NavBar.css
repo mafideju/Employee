@@ -17,5 +17,17 @@
 }
 
 .navbar--button {
-  margin-bottom: .5rem!important;
+  margin-bottom: .25rem!important;
+}
+
+.navbar--button__logout {
+  display: flex;
+  align-items: space-around;
+}
+
+.avatar {
+  border-radius: 50%;
+  margin: 0 1rem 0 0;
+  max-width: 3rem;
+  max-height: 3rem;
 }
