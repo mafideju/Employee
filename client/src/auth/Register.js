@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { registerUser } from '../actions';
 import history from '../history';
 import './auth.css';
+import InputField from '../common/InputField';
 
 class Register extends Component {
   state = {
@@ -57,7 +58,51 @@ class Register extends Component {
         </Header>
 
         <Form onSubmit={this.onSubmitHandler}>
-          <Form.Field>
+
+          <InputField
+            className={`${errors.name ? 'redAlert' : ''}`}
+            placeholder="Nome Completo"
+            name="name"
+            type='text'
+            value={this.state.name}
+            onChange={this.onInputChange}
+            error={errors.name}
+          />
+
+
+          <InputField
+            className={`${errors.email ? 'redAlert' : ''}`}
+            placeholder="E-Mail"
+            name="email"
+            type='email'
+            value={this.state.email}
+            onChange={this.onInputChange}
+            error={errors.email}
+            info="Registre-se com o mesmo Email do Gravatar e associe os avatares !!!"
+          />
+
+
+          <InputField
+            className={`${errors.password ? 'redAlert' : ''}`}
+            placeholder="Senha"
+            name="password"
+            type='password'
+            value={this.state.password}
+            onChange={this.onInputChange}
+            error={errors.password}
+          />
+
+
+          <InputField
+            className={`${errors.password2 ? 'redAlert' : ''}`}
+            placeholder="Confirme a Senha"
+            name="password2"
+            type='password'
+            value={this.state.password2}
+            onChange={this.onInputChange}
+            error={errors.password2}
+          />
+          {/*   <Form.Field>
             <div className={`${errors.name ? 'redAlert' : ''}`}>
               <label>Nome Completo</label>
               <input
@@ -111,7 +156,7 @@ class Register extends Component {
               />
               {errors.password2 ? errors.password2 : ''}
             </div>
-          </Form.Field>
+          </Form.Field> */}
 
           <Button inverted fluid
             color='violet'

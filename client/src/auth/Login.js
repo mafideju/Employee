@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { loginUser } from '../actions';
 import history from '../history';
 import './auth.css';
+import InputField from '../common/InputField';
 
 
 class Login extends Component {
@@ -47,7 +48,7 @@ class Login extends Component {
       password: this.state.password
     }
     this.props.loginUser(user)
-    console.log(user)
+    // console.log(user)
   }
 
   render() {
@@ -55,38 +56,33 @@ class Login extends Component {
 
     return (
       <Container style={{ padding: '2rem 0' }}>
+
         <Header as='h2' icon textAlign='center'>
           <Icon name='pencil alternate' circular />
           <Header.Content>Entrar</Header.Content>
         </Header>
+
         <Form onSubmit={this.onSubmitHandler}>
 
-          <Form.Field>
-            <div className={`${errors.email ? 'redAlert' : ''}`}>
-              <label>E-Mail</label>
-              <input
-                placeholder='Insira o Email de Cadastro'
-                name='email'
-                value={this.state.email}
-                onChange={this.onInputChange} />
-              {errors.email ? errors.email : ''}
-            </div>
-          </Form.Field>
+          <InputField
+            className={`${errors.email ? 'redAlert' : ''}`}
+            placeholder="E-Mail"
+            name="email"
+            type='email'
+            value={this.state.email}
+            onChange={this.onInputChange}
+            error={errors.email}
+          />
 
-          <Form.Field>
-            <div className={`${errors.password ? 'redAlert' : ''}`}>
-              <label>Senha</label>
-              <input
-                placeholder='Mais de 6 Caracteres'
-                name='password'
-                type="password"
-                noValidate
-                value={this.state.password}
-                onChange={this.onInputChange}
-              />
-              {errors.password ? errors.password : ''}
-            </div>
-          </Form.Field>
+          <InputField
+            className={`${errors.email ? 'redAlert' : ''}`}
+            placeholder="Senha"
+            name="password"
+            type='password'
+            value={this.state.password}
+            onChange={this.onInputChange}
+            error={errors.password}
+          />
 
           <Button fluid inverted
             color='violet'

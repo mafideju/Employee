@@ -11,8 +11,10 @@ import {
   Button,
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { logoutUser } from '../../actions'
+import { logoutUser } from '../../actions';
+import { clearCurrentProfile } from '../../actions/profileActions';
 import './NavBar.css';
+import history from '../../history';
 
 
 const getWidth = () => {
@@ -39,11 +41,13 @@ class NavBar extends Component {
 
   onLogoutHandle = () => {
     this.props.logoutUser();
+    this.props.clearCurrentProfile();
+    history.push('/')
   }
 
   render() {
     const { fixed } = this.state;
-    console.log('NAVBAR PROPS', this.props)
+    // console.log('NAVBAR PROPS', this.props)
     const { isAuthenticated, user } = this.props.auth;
 
     return (
@@ -78,11 +82,11 @@ class NavBar extends Component {
               <div className="navbar">
                 <Menu.Item
                   as="div"
-                  name='new'
+                  name='dash'
                   onClick={this.handleItemClick}
-                  active={this.state.activeItem === 'new'}>
-                  <Link to="/">
-                    Menu One
+                  active={this.state.activeItem === 'dash'}>
+                  <Link to="/dashboard">
+                    Dashboard
                   </Link>
                 </Menu.Item>
 
@@ -230,10 +234,13 @@ class NavBar extends Component {
 // )
 
 const mapStateToProps = state => {
-  console.log('STATE NAVBAR', state)
+  // console.log('STATE NAVBAR', state)
   return {
     auth: state.auth
   }
 }
 
-export default connect(mapStateToProps, { logoutUser })(NavBar);
+export default connect(mapStateToProps, {
+  logoutUser,
+  clearCurrentProfile
+})(NavBar);

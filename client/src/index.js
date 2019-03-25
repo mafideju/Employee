@@ -9,6 +9,7 @@ import reducers from './reducers';
 import * as serviceWorker from './serviceWorker';
 import setAuthToken from './common/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions';
+import { clearCurrentProfile } from './actions/profileActions';
 // import history from './history';
 import 'semantic-ui-css/semantic.min.css'
 import './index.css';
@@ -24,6 +25,7 @@ if (localStorage.jwtToken) {
   // EXPIRAR TOKEN
   if (jwt_decode(localStorage.jwtToken).exp < (Date.now() / 1000)) {
     store.dispatch(logoutUser());
+    store.dispatch(clearCurrentProfile());
     // history.push('/login')
     window.location.href = '/login';
   }

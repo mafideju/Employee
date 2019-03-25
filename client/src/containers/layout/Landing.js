@@ -2,7 +2,7 @@ import React from 'react'
 import Backdrop from './Backdrop';
 
 const Landing = () => (
-  <Backdrop style={{ width: '100%' }} />
+  <Backdrop style={{ maxWidth: '99.5%' }} />
 )
 
 export default Landing;
